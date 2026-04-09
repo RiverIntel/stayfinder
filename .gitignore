@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Test coverage
+coverage/
+
+# Local credentials and env files (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Editor and OS noise
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+*.log
+
+# Lockfile policy: include the lockfile (npm convention) so reproducible
+# installs work, but ignore the npm cache and per-user state.
+.npm/
+.npmrc

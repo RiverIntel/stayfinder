@@ -1,0 +1,41 @@
+{
+  "id": "stayfinder",
+  "name": "StayFinder",
+  "description": "Live hotel and vacation rental search via the StayFinder service. Returns real-time pricing, availability, and Expedia booking redirect links — never scrape, never construct booking URLs from training data.",
+  "skills": [
+    "./skills"
+  ],
+  "contracts": {
+    "tools": [
+      "search_stays",
+      "stayfinder_signup",
+      "stayfinder_verify"
+    ]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "adapter_url": {
+        "type": "string",
+        "description": "Base URL of the StayFinder service. Defaults to the public hosted endpoint at https://api.stayfinder.riverintel.com if omitted."
+      },
+      "default_pos_country": {
+        "type": "string",
+        "pattern": "^[A-Z]{2}$",
+        "description": "ISO-3166-1 alpha-2 country code for point-of-sale (affects currency and pricing display). Defaults to US."
+      },
+      "default_currency": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$",
+        "description": "ISO-4217 currency code. Defaults to the POS country's primary currency."
+      },
+      "request_timeout_ms": {
+        "type": "integer",
+        "minimum": 1000,
+        "maximum": 60000,
+        "description": "HTTP timeout for service calls. Defaults to 10000 (10s)."
+      }
+    }
+  }
+}
