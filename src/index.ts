@@ -1,32 +1,30 @@
 /**
  * StayFinder OpenClaw plugin entry point.
  *
- * This file is the canonical extension entry — `package.json#openclaw.extensions`
- * points at `./dist/index.js`, which is the compiled output of this file.
+ * Registers three tools:
+ *   - search_stays      — live hotel and vacation rental search
+ *   - stayfinder_signup — request a 6-digit email verification code
+ *   - stayfinder_verify — exchange the code for a token, saved to disk
  *
- * The plugin currently registers nothing functional; it's a scaffold that
- * loads cleanly into the OpenClaw plugin runtime so we can verify the
- * package layout, version compatibility, and ClawHub publish flow before
- * adding real tools.
- *
- * Subsequent slices will add (in roughly this order):
- *   - search_stays      — the main lodging search tool
- *   - stayfinder_signup — bootstrap tool that requests a 6-digit email code
- *   - stayfinder_verify — bootstrap tool that exchanges the code for a token
- *   - skills/lodging-search/SKILL.md — the mandatory companion skill
- *   - credential store, error mapping, etc.
+ * The bundled SKILL.md in skills/lodging-search/ tells the model when
+ * and how to use these tools. The skill is loaded automatically by
+ * OpenClaw when the plugin is installed (declared in openclaw.plugin.json).
  */
-import { definePluginEntry, emptyPluginConfigSchema } from 'openclaw/plugin-sdk/core';
+import { definePluginEntry } from 'openclaw/plugin-sdk/core';
+
+import { createSearchStaysTool } from './tools/search-stays.js';
+import { createStayFinderSignupTool } from './tools/stayfinder-signup.js';
+import { createStayFinderVerifyTool } from './tools/stayfinder-verify.js';
 
 export default definePluginEntry({
   id: 'stayfinder',
   name: 'StayFinder',
   description:
     'Live hotel and vacation rental search via the StayFinder service. ' +
-    'Returns real-time pricing, availability, and Expedia booking redirect links.',
-  configSchema: emptyPluginConfigSchema(),
-  register: (_api) => {
-    // Intentionally empty for the scaffold slice. Tool registrations land
-    // in the next slice; see src/tools/ for the planned shape.
+    'Returns real-time pricing, availability, and booking redirect links.',
+  register(api) {
+    api.registerTool(createSearchStaysTool(api));
+    api.registerTool(createStayFinderSignupTool(api));
+    api.registerTool(createStayFinderVerifyTool(api));
   },
 });

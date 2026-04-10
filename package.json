@@ -1,6 +1,6 @@
 {
   "name": "@riverintel/stayfinder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "OpenClaw plugin for live hotel and vacation rental search via the StayFinder service. Returns real-time pricing, availability, and Expedia booking redirect links — no scraping, no browser automation.",
   "type": "module",
   "main": "dist/index.js",
