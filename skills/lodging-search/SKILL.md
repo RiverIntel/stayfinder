@@ -81,9 +81,14 @@ Triggers include:
 
 4. **Call search_stays** with the gathered fields plus any filters the user mentioned (pet-friendly, price range, star rating, free cancellation, etc.).
 
-5. **Present 3-5 top options** to the user, not all 25. Focus on price, location, and the most distinctive feature. Include the redirect_link for each so the user can book.
+5. **If the search returns zero results**, try these before giving up:
+   - Use a more specific destination (e.g., "Kihei, Maui" instead of "Maui") — the service resolves free-text destinations and specific town names work better than broad region names
+   - For vacation rentals in resort/rural areas, the inventory may be spread across a wider area than city hotels — some destinations just have limited coverage
+   - Tell the user honestly if nothing came back and suggest a nearby alternative or different dates
 
-6. **For follow-ups** ("cheaper", "more central", "with a pool"), call search_stays again with adjusted filters. Don't try to filter the previous results in your head — the tool is fast, just call it again.
+6. **Present 3-5 top options** to the user, not all 25. Focus on price, location, and the most distinctive feature. Include the redirect_link for each so the user can book.
+
+7. **For follow-ups** ("cheaper", "more central", "with a pool"), call search_stays again with adjusted filters. Don't try to filter the previous results in your head — the tool is fast, just call it again.
 
 ## Output format for the user
 
