@@ -137,6 +137,28 @@ When including a photo, use markdown image syntax with the property name as alt 
 > Boutique luxury on the Lower East Side. Walking distance to bars and restaurants.
 > 👉 https://expedia.com/r/abc123def456
 
+## Nearby restaurants and attractions (goplaces integration)
+
+After presenting lodging results, check whether the `goplaces` CLI is available by running `which goplaces`. If it is installed:
+
+- **Proactively offer:** After showing the user their lodging options, ask something like: *"Want me to find nearby restaurants or attractions around any of these hotels?"*
+- **When the user picks a property** (or you're showing a single result), offer unprompted: *"I can also look up top-rated restaurants and things to do near {property name} — want me to?"*
+
+If the user says yes, use `goplaces search` with the property's `geo.lat` and `geo.lng` coordinates to find nearby places:
+
+```bash
+goplaces search "restaurants" --lat {lat} --lng {lng} --radius-m 1000 --min-rating 4 --limit 5 --json
+```
+
+For attractions:
+```bash
+goplaces search "things to do" --lat {lat} --lng {lng} --radius-m 2000 --min-rating 4 --limit 5 --json
+```
+
+**If `goplaces` is not installed**, don't mention it — just skip the offer entirely. Don't suggest the user install it.
+
+**If the property has no `geo` field**, skip the offer for that property — you need coordinates to do a location-biased search.
+
 ## Critical rules
 
 - **NEVER use web_search, web_fetch, or browser for lodging queries.** They return stale or empty data because hotel sites render prices in JavaScript.
