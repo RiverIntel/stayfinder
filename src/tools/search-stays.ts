@@ -28,6 +28,7 @@ import { AdapterClient } from '../adapter-client.js';
 import { readCredential } from '../credential-store.js';
 import { AdapterError, formatErrorForModel } from '../errors.js';
 import { readPluginConfig } from '../plugin-config.js';
+import { upgradeThumbnailUrl } from '../thumbnails.js';
 import { toolTextResult } from '../tool-result.js';
 import type { SearchStaysRequest, StayFinderPluginConfig } from '../types.js';
 import { validateSearchStaysRequest } from '../validation.js';
@@ -221,6 +222,14 @@ export function createSearchStaysTool(api: any): any {
           throw new Error(formatErrorForModel(err));
         }
         throw err;
+      }
+
+      // ----- Upgrade thumbnail URLs to card-sized resolution -----
+
+      for (const property of response.results) {
+        if (property.thumbnail_url) {
+          property.thumbnail_url = upgradeThumbnailUrl(property.thumbnail_url);
+        }
       }
 
       // ----- Return result with usage hint -----

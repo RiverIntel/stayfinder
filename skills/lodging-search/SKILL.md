@@ -99,7 +99,38 @@ For each recommendation, include:
 - One-sentence "why this one" (location, value, or feature)
 - The redirect_link as a tap-to-book URL
 
-Example:
+### Property photos
+
+Each result includes a `thumbnail_url` — a card-sized (~500px wide) photo of the property from Expedia's CDN. Use it when the presentation context benefits from images:
+
+**Include images when:**
+- Writing to a rich canvas or document (Notion, markdown preview, web UI)
+- Showing a single property in detail (one image is fine even in chat)
+- The user explicitly asks to "show me" or "what does it look like"
+
+**Skip images when:**
+- Listing multiple properties in a chat-style channel (iMessage, SMS, Slack DMs) — images interspersed with text details create a noisy sequence of separate messages
+- The user is doing a quick price comparison and doesn't need visuals
+- The channel doesn't render markdown images
+
+When including a photo, use markdown image syntax with the property name as alt text:
+
+```
+![The Ludlow Hotel](https://images.trvl-media.com/lodging/12345678/abc123_y.jpg)
+```
+
+### Examples
+
+**Rich context (canvas / document / single-property chat):**
+
+> ![The Ludlow Hotel](https://images.trvl-media.com/lodging/12345678/abc123_y.jpg)
+>
+> **The Ludlow Hotel** ⭐ 4.0 · 8.7/10 (1,842 reviews)
+> $425/night · $2,125 total · free cancellation
+> Boutique luxury on the Lower East Side. Walking distance to bars and restaurants.
+> 👉 https://expedia.com/r/abc123def456
+
+**Chat context (multi-property list):**
 
 > **The Ludlow Hotel** ⭐ 4.0 · 8.7/10 (1,842 reviews)
 > $425/night · $2,125 total · free cancellation
